@@ -3,3 +3,19 @@ services:
     image: redis:7
     ports:
       - "6379:6379"
+
+  postgis:
+    image : postgis/postgis:16-3.4  
+    environment:
+      POSTGRES_DB: locationdb
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: secret 
+    ports:
+      - "5433:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data 
+
+
+
+volumes:
+  pgdata: 
