@@ -11,8 +11,10 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.domain.geo.GeoReference;
 import org.springframework.stereotype.Service;
 import com.nearby.locationservice.model.LocationHistory;
+import com.nearby.locationservice.model.LocationHistoryResponse;
 import com.nearby.locationservice.repository.LocationHistoryRepository;
 import java.time.Instant;
+import java.time.Duration;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -61,7 +63,25 @@ public class LocationService{
     point.setSRID(4326);
     return point;
   }
+  
 
+  public List<LocationHistoryResponse> getHistory(String userId, int sinceMinutes){
+    Instant since = Instant.now().minus(Duration.ofMinutes(sinceMinutes));
+
+    List<LocationHistory> historyList = historyRepository.findByUserIdAndRecordedAtAfterOrderByRecordedAtAsc(userId,since);
+    List<LocationHistoryResponse> responses = new ArrayList<>();
+    for ( LocationHistory entity : historyList){
+        LocationHistoryResponse response = new LocationHistoryResponse(
+            entity.getUserId(),
+            entity.getLocation().getY(),
+            entity.getLocation().getX(),
+            entity.getRecordedAt()
+            );
+
+        responses.add(response);
+    }
+    return responses; 
+  }
 
 
 }

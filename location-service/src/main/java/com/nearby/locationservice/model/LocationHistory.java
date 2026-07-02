@@ -21,6 +21,10 @@ public class LocationHistory{
   @Column(nullable = false)
   private Instant recordedAt;
 
+  // Required by JPA/Hibernate to instantiate the entity when reading rows from the DB
+  protected LocationHistory(){
+  }
+
   public LocationHistory(String userId, Point location, Instant recordedAt){
     this.userId = userId;
     this.location = location;

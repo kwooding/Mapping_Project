@@ -72,8 +72,13 @@
     </dependency>
 
     <dependency>
-    <groupId>org.hibernate.orm</groupId>
-    <artifactId>hibernate-spatial</artifactId>
+      <groupId>org.hibernate.orm</groupId>
+      <artifactId>hibernate-spatial</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>com.fasterxml.jackson.datatype</groupId>
+      <artifactId>jackson-datatype-jsr310</artifactId>
     </dependency>
 
 	</dependencies>
